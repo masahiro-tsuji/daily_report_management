@@ -15,6 +15,7 @@ public class DBUtil {
     }
 
     private static EntityManagerFactory getEntityManagerFactory() {
+    // アプリケーションがアプリケーション管理のEntityManagerを取得するために使用
         if(emf == null){
             emf = Persistence.createEntityManagerFactory(PERSISTENCE_NAME);
         }
