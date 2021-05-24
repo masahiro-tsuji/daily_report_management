@@ -77,7 +77,7 @@ import javax.persistence.Table;
 
 //getter,setterの生成  *値を追加・変更するのがsetter, 値を取得するのがgetter
     //ID
-    public Integer getIid(){
+    public Integer getId(){
         return this.id;
     }
     public void setId(int id){
