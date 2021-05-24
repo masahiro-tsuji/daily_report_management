@@ -34,70 +34,44 @@ public class EmployeeIndexServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        EntityManager em = DBUtil.createEntityManager();
+        EntityManager em = DBUtil.createEntityManager();// EntityManager()データベースに対してエンティティを登録したり，削除したりするためのインタフェースを持つオブジェクトの作成
 
-        int page = 1;
+        int pageNum = 1;// ページ番号。デフォルトは１ページ目
+
         try{
-            page = Integer.parseInt(request.getParameter("page"));
+            pageNum = Integer.parseInt(request.getParameter("page"));
         } catch(NumberFormatException e) { }
-        List<Employee> employees = em.createNamedQuery("getAllEmployees", Employee.class)
-                                     .setFirstResult(15 * (page - 1))
-                                     .setMaxResults(15)
-                                     .getResultList();
 
+        // 最大件数と開始位置を指定して従業員を取得
+        List<Employee> employee = em.createNamedQuery("getAllEmployee",Employee.class)
+                .setFirstResult(15 * (pageNum - 1)) // 何件目からデータを取得するか（配列と同じ0番目から数える
+                .setMaxResults(15) // データの最大取得件数（15件で固定）
+                .getResultList(); // リストで結果を取得
+
+        // 全従業員数を取得
         long employees_count = (long)em.createNamedQuery("getEmployeesCount", Long.class)
-                                       .getSingleResult();
+        .getSingleResult();
 
-        em.close();
+        em.close(); // データベースを閉じる
 
-        request.setAttribute("employees", employees);
-        request.setAttribute("employees_count", employees_count);
-        request.setAttribute("page", page);
-        if(request.getSession().getAttribute("flush") != null) {
-            request.setAttribute("massage", request.getSession().getAttribute("flush"));
-            request.getSession().removeAttribute("flush");
+        // パラメーターを追加
+        request.setAttribute("employee", employee); // 従業員のデータ
+        request.setAttribute("employee_count", employees_count); // 全件数
+        request.setAttribute("page", pageNum); // ページ数
+        // フラッシュメッセージ関連 * １
+        // リクエストスコープにフラッシュメッセージをセットすると途中で削除されてしまう。
+        // そこで、フラッシュメッセージをセッションスコープに保存、index.jsp を呼び出したときにセッションスコープから取り出して表示
+        if(request.getSession().getAttribute("flush") != null) { // オブジェクトがあるなら
+            // セッションスコープ内のフラッシュメッセージをリクエストスコープに保存
+            request.setAttribute("message", request.getSession().getAttribute("flush"));
+            request.getSession().removeAttribute("flush");  // 引数に指定したセッションオブジェクト(スコープ)を削除
         }
-
+        //index.jspへ遷移
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/index.jsp");
         rd.forward(request, response);
     }
-       /* EntityManager em = DBUtil.createEntityManager(); // EntityManager()データベースに対してエンティティを登録したり，削除したりするためのインタフェースを持つオブジェクトの作成
-        int pageNum=1; // ページ番号
-        try{
-            pageNum = Integer.parseInt(request.getParameter("pageNum")); // JSPからページ数を取得
+}
 
-            List<Employee> employee = em.createNamedQuery("getAllEmployee",Employee.class)
-                                        .setFirstResult(15 * (pageNum - 1))
-                                        .setMaxResults(15)
-                                        .getResultList();
-            // 従業員数を取得
-            long employees_count = (long)em.createNamedQuery("getEmployeesCount", Long.class)
-                    .getSingleResult();
-
-            em.close(); // データベースを閉じる
-
-            // パラメーターを追加
-            request.setAttribute("employees", employee);
-            request.setAttribute("employees_count", employees_count);
-            request.setAttribute("page", pageNum);
-                // フラッシュメッセージ関連 * １
-                // リクエストスコープにフラッシュメッセージをセットすると途中で削除されてしまう。
-                // そこで、フラッシュメッセージをセッションスコープに保存、index.jsp を呼び出したときにセッションスコープから取り出して表示
-            if(request.getSession().getAttribute("flush") != null) { // オブジェクトがあるなら
-                // セッションスコープ内のフラッシュメッセージをリクエストスコープに保存
-                request.setAttribute("message", request.getSession().getAttribute("flush"));
-                request.getSession().removeAttribute("flush");  // 引数に指定したセッションオブジェクト(スコープ)を削除
-            }
-            //index.jspへ遷移
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/index.jsp");
-            rd.forward(request, response);
-
-        }catch(NumberFormatException e){
-
-        }*/
-    }
-
-//}
 /*
  *１: getSession() : HttpServletRequestからセッションのインスタンスを取得。
       getAttribute() : セッションオブジェクトを取り出して読み込む

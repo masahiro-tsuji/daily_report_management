@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "employees")  // @Table : Entityにマッピングされるテーブル名を指定
 @NamedQueries({     // @NamedQueries : 複数のNamedQueryをまとめたもの
     @NamedQuery(    // @NamedQuery : 主キー以外の項目などで検索し、複数件の結果を取得したい場合に定義(SQL文に名前を付けたもの)
-        name = "getAllEmployees",   // すべての従業員情報を取得
+        name = "getAllEmployee",   // すべての従業員情報を取得
         query = "SELECT e FROM Employee AS e ORDER BY e.id Desc"
         ),
     @NamedQuery(    // 従業員情報の全件数を取得
