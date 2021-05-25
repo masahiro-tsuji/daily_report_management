@@ -2,12 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url ="../layout/app.jsp">
     <c:param name="content">
-       <h2>従業員　新規登録</h2>
+       <h2>確認画面</h2>
 
-       <form method="POST" action ="<c:url value = '/employee/check' /> ">
-           <c:import url = "_form.jsp" />
+       <form method="POST" action ="<c:url value = '/employee/create' /> ">
+           <c:import url = "check.jsp" />
+           <button type = "submit">登録</button>
        </form>
 
        <p><a href="<c:url value='/employee/index' />">>一覧に戻る</a></p>
+
     </c:param>
 </c:import>

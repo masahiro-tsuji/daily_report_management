@@ -56,7 +56,7 @@ import javax.persistence.Table;
     private String name;
 
     //パスワード
-    @Column(name = "password", length =10, nullable = false)
+    @Column(name = "password", length =100, nullable = false)// パスの桁数を直す。
     private String pass;
 
     //権限(管理者か一般者)

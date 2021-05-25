@@ -17,6 +17,7 @@
                     <th>社員番号</th>
                     <th>氏名</th>
                     <th>操作</th>
+                    <th>権限</th>
                 </tr>
                 <!--c:forEach : 繰り返し(for文の様なもの)　var：itemから取り出した要素を格納する変数名、item：配列やリスト、varStatus：現在のループの状態を表すステータス変数。 -->
                 <c:forEach var="employee" items="${employee}" varStatus="status">
@@ -32,6 +33,16 @@
                                 </c:when>
                                 <c:otherwise>
                                     <a href="<c:url value='/employees/show?id=${employee.id}' />">詳細を表示</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${employee.admin_flag == 1}">
+                                    管理者
+                                </c:when>
+                                <c:otherwise>
+                                    一般
                                 </c:otherwise>
                             </c:choose>
                         </td>

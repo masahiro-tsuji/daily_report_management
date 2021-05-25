@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!-- エラーメッセージがあるなら表示 -->
 <c:if test="${errors != null}">
     <div id="flush_error">
@@ -26,10 +27,10 @@
 
 <label for = "flag">権限</label> <br/>
 <select name = "flag">
-    <option value = "0" <c:if test = "${ employee.admin_flag == 0 }"> selected </c:if>>一般</option>
-    <option value = "1" <c:if test = "${ employee.admin_flag == 1 }}"> selected </c:if>>管理者</option>
+    <option value = '0' <c:if test = "${ employee.admin_flag == 0 }"> selected </c:if>>一般</option>
+    <option value = '1' <c:if test = "${ employee.admin_flag == 1 }"> selected </c:if>>管理者</option>
 </select>
 <br/><br/>
 <!-- トークンを送る -->
 <input type = "hidden" name = "_token" value = "${_token }"/>
-<button type = "submit">登録</button>
+<button type = "submit">確認</button>
