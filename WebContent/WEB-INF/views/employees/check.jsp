@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+ <!-- 下記の内容～～～を表示 -->
+<div id="check_ok">
+    <c:out value="${checkmessage}"></c:out>
+</div>
+
 <!-- 入力内容 -->
 <label for = "code">社員番号</label> <br/>
 <input id = "check" type="text" name="code" value="${ employee.code }" readonly>
@@ -27,4 +32,4 @@
 </c:if>
 <br/><br/>
 <!-- トークンを送る -->
-<input type = "hidden" name = "_token" value = "${_token }"/>
+<input type = "hidden" name = "token" value = "${_token }"/>

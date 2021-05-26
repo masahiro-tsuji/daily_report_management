@@ -32,5 +32,5 @@
 </select>
 <br/><br/>
 <!-- トークンを送る -->
-<input type = "hidden" name = "_token" value = "${_token }"/>
+<input type = "hidden" name = "token" value = "${_token }"/>
 <button type = "submit">確認</button>

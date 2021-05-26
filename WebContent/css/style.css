@@ -76,6 +76,7 @@ button {
 table#employee_list th {
     width: 30%;
     padding: 10px 2%;
+    font-weight: bold;
     background-color:#ffff99;
     text-align: center;
 }
@@ -99,3 +100,4 @@ select {
 #check {
     background-color:#ffff99;
 }
+

@@ -16,10 +16,10 @@
                 <tr>
                     <th>社員番号</th>
                     <th>氏名</th>
-                    <th>操作</th>
+                    <th>詳細</th>
                     <th>権限</th>
                 </tr>
-                <!--c:forEach : 繰り返し(for文の様なもの)　var：itemから取り出した要素を格納する変数名、item：配列やリスト、varStatus：現在のループの状態を表すステータス変数。 -->
+                <!-- c:forEach : 繰り返し(for文の様なもの)　var：itemから取り出した要素を格納する変数名、item：配列やリスト、varStatus：現在のループの状態を表すステータス変数。 -->
                 <c:forEach var="employee" items="${employee}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <!-- c:out : 表示。またこれを利用すると、サニタイジングが実行され、HTMLタグの < や > が無害化 -->
