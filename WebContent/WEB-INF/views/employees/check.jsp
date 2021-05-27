@@ -7,19 +7,19 @@
 </div>
 
 <!-- 入力内容 -->
-<label for = "code">社員番号</label> <br/>
+<label for = "code">＜社員番号＞</label> <br/>
 <input id = "check" type="text" name="code" value="${ employee.code }" readonly>
 <br/><br/>
 
-<label for = "name">氏名</label> <br/>
+<label for = "name">＜氏名＞</label> <br/>
 <input id = "check" type="text" name="name" value="${ employee.name }" readonly>
 <br/><br/>
 
-<label for = "pass">パスワード</label> <br/>
+<label for = "pass">＜パスワード＞</label> <br/>
 <input id = "check" type="text" name="pass" value="${ employee.pass }" readonly>
 <br/><br/>
 
-<label for = "flag">権限</label> <br/>
+<label for = "flag">＜権限＞</label> <br/>
 <!-- 一般なら  -->
 <c:if test = "${ employee.admin_flag == 0 }">
     <input id = "check" type="text" value="一般" readonly>

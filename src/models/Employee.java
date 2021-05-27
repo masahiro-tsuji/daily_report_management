@@ -51,8 +51,8 @@ import javax.persistence.Table;
     // unique = は、 一意制約といい、すでに存在している社員番号は登録できない旨をデータベースに伝える為の設定。
     private String code;
 
-    //名前
-    @Column(name = "name", nullable = false, unique = true)
+    //名前*ここ訂正
+    @Column(name = "name", nullable = false, unique = false)
     private String name;
 
     //パスワード

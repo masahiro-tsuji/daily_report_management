@@ -9,6 +9,7 @@ import models.Employee;
 import utils.DBUtil;
 
 public class EmployeeValidator {
+
     public static List<String> validate(Employee e, Boolean codeDuplicateCheckFlag, Boolean passwordCheckFlag) {
         List<String> errors = new ArrayList<String>();
 
@@ -41,7 +42,7 @@ public class EmployeeValidator {
             long employees_count = (long)em.createNamedQuery("checkRegisteredCode", Long.class).setParameter("code", code).getSingleResult();
             em.close();
             if(employees_count > 0) {
-                return "入力された社員番号の情報はすでに存在しています。";
+                return "入力された社員番号はすでに存在しています。";
             }
         }
         return "";

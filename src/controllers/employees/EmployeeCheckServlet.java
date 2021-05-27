@@ -38,10 +38,9 @@ public class EmployeeCheckServlet extends HttpServlet {
         // セッションのトークンを取得
         HttpSession session = request.getSession(true);
         String _token = (String)session.getAttribute("_token");
-
+        Employee e = new Employee(); // インスタンス生成
         // トークンが一致しているなら.
         if(_token != null && _token.equals(token) ){
-            Employee e = new Employee(); // インスタンス生成
             // new.jspからの値を受け取る。
             e.setCode(request.getParameter("code"));
             e.setName(request.getParameter("name"));
@@ -55,11 +54,10 @@ public class EmployeeCheckServlet extends HttpServlet {
                 session.setAttribute("_token", CreateToken.getCsrfToken());
                 request.setAttribute("employee", e);
                 request.setAttribute("errors", errors);
-
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/new.jsp");
                 rd.forward(request, response);
             }else{ // elseを付けなければ下記が実行されトークンが作られ、エラーになる
-            // エラーがなければ、確認画面へ
+                // エラーがなければ、確認画面へ
                 session.setAttribute("_token", CreateToken.getCsrfToken());
                 request.setAttribute("employee", e);
                 request.setAttribute("checkmessage", "下記の内容で登録します。");
