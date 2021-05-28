@@ -32,16 +32,21 @@ public class EmployeeShowServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        EntityManager em = DBUtil.createEntityManager(); // データベースopen
+
+        // データベースopen
+        EntityManager em = DBUtil.createEntityManager();
 
         // employeesテーブルからid(主キー)を指定して対応する従業員を検索する
         Employee e = em.find(Employee.class, Integer.parseInt(request.getParameter("id")));
+
+        // データベースを閉じる
         em.close();
 
+        // EmployeeデータをJSPで使えるよう格納
         request.setAttribute("employee", e);
 
+        // show.jspへ
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/show.jsp");
         rd.forward(request, response);
     }
-
 }

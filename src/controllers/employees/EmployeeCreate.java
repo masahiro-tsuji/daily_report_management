@@ -54,7 +54,7 @@ public class EmployeeCreate extends HttpServlet {
             // 作成日・更新日を登録　デリートフラグは消さないので”0”設定
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             e.setCreate_date(currentTime);
-            e.setUpdate_date(currentTime);
+            //e.setUpdate_date(currentTime);
             e.setDelete_flag(0);
 
             // 登録

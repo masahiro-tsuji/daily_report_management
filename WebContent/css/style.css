@@ -93,6 +93,23 @@ tr.row0 {
         background-color: #ffffff;
 }
 
+table#empllyee_detail{
+     width: 60%;
+}
+
+table#empllyee_detail th{
+    width: 20%;
+    padding: 10px;
+    font-weight: bold;
+    background-color:#ffff99;
+    text-align: center;
+}
+
+table#employee_detail td{
+    width: 30%;
+    padding: 10px;
+}
+
 select {
     height: 30px;
 }
