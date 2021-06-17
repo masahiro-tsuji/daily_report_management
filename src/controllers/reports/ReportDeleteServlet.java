@@ -1,4 +1,4 @@
-package controllers.employees;
+package controllers.reports;
 
 import java.io.IOException;
 
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Employee;
+import models.Report;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class EmployeeShowServlet
+ * Servlet implementation class ReportDeleteServlet
  */
-@WebServlet("/employee/show")
-public class EmployeeShowServlet extends HttpServlet {
+@WebServlet("/report/delete")
+public class ReportDeleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeeShowServlet() {
+    public ReportDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +32,13 @@ public class EmployeeShowServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        // データベースopen
         EntityManager em = DBUtil.createEntityManager();
-
-        // employeesテーブルからid(主キー)を指定して対応する従業員を検索する
-        Employee e = em.find(Employee.class, Integer.parseInt(request.getParameter("id")));
-
-        // データベースを閉じる
+        Report report = em.find(Report.class, Integer.parseInt(request.getParameter("id")));
         em.close();
 
-        // Employeeデータをshow.jspで使えるよう格納
-        request.setAttribute("employee", e);
-
-        // show.jspへ
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/show.jsp");
+        request.setAttribute("report", report);
+        request.getSession().setAttribute("reportId", report.getId());
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/delete.jsp");
         rd.forward(request, response);
     }
 }

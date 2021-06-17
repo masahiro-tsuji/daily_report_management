@@ -21,11 +21,11 @@
                         <tr><th>更新日時</th><td><c:choose>
                                                    <c:when test="${employee.update_date == employee.create_date }">-まだ更新されていません-</c:when>
                                                    <c:otherwise><fmt:formatDate value="${employee.update_date}" pattern="yyyy-MM-dd HH:mm:ss" /></c:otherwise>
-                                               </c:choose>
+                                                 </c:choose>
                         </td></tr>
                     </tbody>
                 </table>
-                <p><a href="<c:url value='/employee/edit?id=${employee.id}' />">>この従業員を編集</a></p>
+                <p><a href="<c:url value='/employee/edit?id=${employee.id}' />">>この従業員を編集する</a></p>
             </c:when>
             <c:otherwise><h2>お探しの従業員データは見つかりませんでした。</h2></c:otherwise>
         </c:choose>

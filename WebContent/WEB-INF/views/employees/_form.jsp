@@ -24,19 +24,19 @@
 </c:if>
 
 <!-- 入力内容 -->
-<label for = "code">＜社員番号＞</label> <br/>
+<label for = "code">【社員番号】</label> <br/>
 <input id="code_text" type = "text" name ="code" value = "${ employee.code }" />
 <br/><br/>
 
-<label for = "name">＜氏名＞</label> <br/>
+<label for = "name">【氏名】</label> <br/>
 <input id="name_text" type = "text" name ="name" value = "${ employee.name }" />
 <br/><br/>
 
-<label for = "pass">＜パスワード＞</label> <br/>
-<input id="pass_text" type = "text" name = "pass" value = "${ employee.pass }" />
+<label for = "pass">【パスワード】</label> <br/>
+<input id="pass_text" type = "text" name = "pass" />
 <br/><br/>
 
-<label for = "flag">＜権限＞</label> <br/>
+<label for = "flag">【権限】</label> <br/>
 <select name = "flag">
     <option value = '0' <c:if test = "${ employee.admin_flag == 0 }"> selected </c:if>>一般</option>
     <option value = '1' <c:if test = "${ employee.admin_flag == 1 }"> selected </c:if>>管理者</option>

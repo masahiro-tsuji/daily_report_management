@@ -16,7 +16,7 @@
 <br/><br/>
 
 <label for = "pass">＜パスワード＞</label> <br/>
-<input id = "check" type="text" name="pass" value="${ employee.pass }" readonly>
+<input id = "check" type="password" name="pass" value="${ employee.pass }" readonly>
 <br/><br/>
 
 <label for = "flag">＜権限＞</label> <br/>
@@ -33,3 +33,5 @@
 <br/><br/>
 <!-- トークンを送る -->
 <input type = "hidden" name = "token" value = "${_token }"/>
+
+

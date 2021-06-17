@@ -7,7 +7,6 @@ body {
 
 #header {
     width: 100%;
-    height: 70px;
     background-color: #333333;
 }
 
@@ -17,12 +16,30 @@ body {
     padding-left: 3%;
 }
 
+#flush_success {
+    width: 100%;
+    padding-top: 28px;
+    padding-left: 2%;
+    padding-bottom: 28px;
+    margin-bottom: 15px;
+    color: #155724;
+    background-color: #d4edda;
+}
+
+
+#flush_error {
+    width: 100%;
+    padding-top: 28px;
+    padding-left: 2%;
+    padding-bottom: 28px;
+    margin-bottom: 15px;
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
 h1 {
-    width: 94%;
-    padding-top: 17px;
-    padding-left: 3%;
     font-size: 24px;
-    color: #eeeeee;
+    display: inline;
 }
 
 h2 {
@@ -116,4 +133,65 @@ select {
 
 #check {
     background-color:#ffff99;
+}
+
+#check_message {
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 2%;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    color: #130101;
+    background-color: #f3d0dc;
+}
+
+#header_menu {
+    width: 57%;
+    padding-top: 15px;
+    padding-left: 3%;
+    display: inline-block;
+}
+
+#employee_name {
+    color: #cccccc;
+    width: 36%;
+    padding-right: 3%;
+    text-align: right;
+    display: inline-block;
+}
+
+#header a {
+    color: #eeeeee;
+}
+
+h1 a {
+    color: #eeeeee;
+}
+
+table#report_list th {
+    width: 30%;
+    padding: 10px 2%;
+    font-weight: bold;
+    background-color:#ffff99;
+    text-align: center;
+}
+
+table#report_list {
+    width: 70%;
+}
+
+table#report_list .report_name {
+    width: 10%;
+    padding: 10px 2%;
+}
+table#report_list .report_date {
+    width: 10%;
+}
+
+table#report_list .report_title {
+    width: 15%;
+}
+
+pre{
+    font-family:"Hiragino Kaku Gothic Pro", Meiryo, "MS PGothic", Helvetica, Arial,sans-serif;
 }
