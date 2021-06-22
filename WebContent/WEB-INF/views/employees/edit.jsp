@@ -9,6 +9,7 @@
                 <form method="POST" action ="<c:url value = '/employee/editcheck' /> ">
                     <c:import url = "_form.jsp" />
                 </form>
+                <br/>
                 <a href="<c:url value='/employee/show?id=${ employee.id }' />">>詳細画面に戻る</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="#" onclick="confirmDestroy();">>この従業員データを削除する</a>
                 <form method="POST" action="<c:url value='/employee/destroy'/>">

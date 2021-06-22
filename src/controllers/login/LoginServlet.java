@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
             rd.forward(request, response);
         // 社員番号とパスワードが入力されているなら
         }else{
-            Employee e = null;
+            Employee employee = null;
             // 入力された社員番号とパスワードが入力されていたら。
             if(code != null && !code.equals("") && plain_pass != null && !plain_pass.equals("") ){
                 // DBオープン
@@ -81,7 +81,7 @@ public class LoginServlet extends HttpServlet {
                 // 社員番号とパスワードが合致しているか
                 try{
                     // 検索結果１件を取得、取得できなければNoResultExceptionへ
-                    e = em.createNamedQuery("checkLogin", Employee.class)
+                    employee = em.createNamedQuery("checkLogin", Employee.class)
                             .setParameter("code", code)
                             .setParameter("pass", password)
                             .getSingleResult();
@@ -89,7 +89,7 @@ public class LoginServlet extends HttpServlet {
 
                 em.close(); // DB閉じる
                 // 社員情報があれば,check_resultをtrueにしてログインする。
-                if(e != null) {
+                if(employee != null) {
                     check_result = true;
                 }
 
@@ -105,7 +105,7 @@ public class LoginServlet extends HttpServlet {
                     rd.forward(request, response);
                 }else{
                     // 認証できたらログインする(トップページのServletへ遷移)
-                    request.getSession().setAttribute("login_employee", e); // セッションスコープ従業員情報のオブジェクトを格納
+                    request.getSession().setAttribute("login_employee", employee); // セッションスコープ従業員情報のオブジェクトを格納
                                                                             // *セッションスコープに login_employee という名前で従業員情報の
                                                                             //  オブジェクトが保存されている状態をログインしている状態
                     request.getSession().setAttribute("flush", "ログインしました。");

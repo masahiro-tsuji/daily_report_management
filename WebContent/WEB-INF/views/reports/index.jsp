@@ -20,6 +20,7 @@
                     <th class="report_title">タイトル</th>
                 </tr>
                 <c:forEach var="report" items="${reports}" varStatus="status">
+                    <!--  -->
                     <tr class="row${status.count % 2}">
                         <td class="report_name"><c:out value="${report.employee.name}" /></td>
                         <td class="report_date"><fmt:formatDate value='${report.report_date}' pattern='yyyy年MM月dd日' /></td>
@@ -43,7 +44,7 @@
             </c:forEach>
         </div>
 
-        <p><a href="<c:url value='/report/new' />">新規日報の登録</a></p>
+        <p><a href="<c:url value='/report/new' />">>新規日報の登録</a></p>
 
     </c:param>
 </c:import>
