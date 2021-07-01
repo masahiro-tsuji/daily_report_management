@@ -22,7 +22,7 @@ import javax.persistence.Table;
     // 自分の全ての日報
     @NamedQuery(
         name = "getMyAllComments",
-        query = "SELECT c FROM Comment AS c WHERE c.reportId = :reportId ORDER BY c.id DESC"
+        query = "SELECT c FROM Comment AS c WHERE c.reportId = :reportId ORDER BY c.id ASC"
         ),
     // 自分の投稿日報数
     @NamedQuery(
@@ -43,7 +43,6 @@ public class Comment {
     @JoinColumn(name = "employee", nullable = false)
     private Employee employee; // Employeeデータ
 
-
     @Column(name = "report_id", nullable = false)
     private Integer reportId; // 投稿する日報
 
@@ -53,6 +52,13 @@ public class Comment {
 
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
+
+    @Column(name ="comment_count", nullable = false)
+    private int comment_count;
+
+
+    @Column(name = "delete_flag", nullable = false)
+    private Integer delete_flag;
 
     // getter.setter
     public Integer getId() {
@@ -93,5 +99,21 @@ public class Comment {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+
+    }
+
+    public int getComment_count() {
+        return comment_count;
+    }
+
+    public void setComment_count(int comment_count) {
+        this.comment_count = comment_count;
+    }
+
+    public Integer getDelete_flag() {
+        return delete_flag;
+    }
+    public void setDelete_flag(Integer delete_flag) {
+        this.delete_flag = delete_flag;
     }
 }

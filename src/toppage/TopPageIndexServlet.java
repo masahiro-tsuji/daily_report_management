@@ -71,7 +71,6 @@ public class TopPageIndexServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/topPage/index.jsp");
         rd.forward(request, response);
     }
-
 }
 /*
  * ●インターフェース RequestDispatcher
