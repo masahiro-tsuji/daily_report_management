@@ -225,7 +225,7 @@ table#comment_list .comment_name {
 table#comment_list .comment_create_at {
     padding: 10px;
     display: inline;
-    margin-right:40%;
+    margin-right:30%;
 }
 
 table#comment_list .comment_option {

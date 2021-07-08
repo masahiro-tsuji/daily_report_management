@@ -46,7 +46,7 @@
                 <c:if test="${sessionScope.login_employee.id == report.employee.id || login_employee.admin_flag == 1 }">
                     <form method="POST" action= "<c:url value='/comment/new' />">
                         <label for="comment">●コメント入力フォーム</label><br/>
-                        <textarea rows = "10" cols = "50" name = "comment" placeholder="ここにコメントを入力して下さい。"  >${ comment.comment }</textarea>
+                        <textarea id="comment_area" rows = "10" cols = "50" name = "comment" placeholder="ここにコメントを入力して下さい。"  >${ comment.comment }</textarea>
                         <input type="hidden" name="report_id" value="${ report.id }" />
                         <br/>
                         <button type="submit">投稿</button>

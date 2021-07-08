@@ -15,7 +15,7 @@ import utils.DBUtil;
 /**
  * Servlet implementation class CommentDestroy
  */
-@WebServlet("/report/comment/destroy")
+@WebServlet("/comment/destroy")
 public class CommentDestroy extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -28,11 +28,11 @@ public class CommentDestroy extends HttpServlet {
     }
 
     /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int commentId = Integer.parseInt(request.getParameter("commentId")); // コメントのidを取得
-        int id = Integer.parseInt(request.getParameter("reportId"));
+        int commentId = Integer.parseInt(request.getParameter("cid")); // コメントのidを取得
+        int id = Integer.parseInt(request.getParameter("rid"));
 
         EntityManager em = DBUtil.createEntityManager(); // DBオープン
 
