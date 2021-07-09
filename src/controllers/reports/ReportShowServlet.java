@@ -47,7 +47,6 @@ public class ReportShowServlet extends HttpServlet {
                 .setParameter("reportId", reportId)
                 .getSingleResult(); // 型なしの単一の結果を返す。(ResultListの場合は、投稿者、コメント内容、日時のデータがあるからSingleResultではNG)
 
-
         try{
             // 選択されたページナンバーを取得
             page = Integer.parseInt(request.getParameter("page"));
@@ -87,7 +86,7 @@ public class ReportShowServlet extends HttpServlet {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
         }
-        // show.jspへ
+        // show.jspへ遷移
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/show.jsp");
         rd.forward(request, response);
     }
