@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,16 +16,16 @@ import models.Employee;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class CommentNewServlet
+ * Servlet implementation class CommentReply
  */
-@WebServlet("/comment/new")
-public class CommentNewServlet extends HttpServlet {
+@WebServlet("/reply")
+public class CommentReply extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentNewServlet() {
+    public CommentReply() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,8 +34,22 @@ public class CommentNewServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        response.getWriter().append("Served at: ").append(request.getContextPath());
+
+        int reportId = Integer.parseInt(request.getParameter("rid"));
+        int commentId = Integer.parseInt(request.getParameter("cid"));
+
+        EntityManager em = DBUtil.createEntityManager();
+        Comment comment = em.find(Comment.class, commentId);
+        Comment repComment = new Comment();
+
+        em.close();
+
+        request.setAttribute("reportId", reportId);
+        request.setAttribute("comment", comment);
+        request.setAttribute("repComment", repComment);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/comments/reply.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -42,44 +57,36 @@ public class CommentNewServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
-        //Employee login_employee = (Employee) request.getSession().getAttribute("login_employee");
-        // インスタンス生成とshow.jspから値取得
 
-        Comment comment = new Comment();
-        int id = Integer.parseInt(request.getParameter("report_id")); // 日報のidを取得(リダイレクトでこのidが無いと日報が表示されない)
-        comment.setReportId(id); // 該当レポートのidを取得
-        comment.setEmployee((Employee) request.getSession().getAttribute("login_employee")); // セッションからログインユーザーを取得
-        comment.setComment(request.getParameter("comment")); // コメント内容セット
-
+        int reportId = Integer.parseInt(request.getParameter("reportId"));
+        int repComId = Integer.parseInt(request.getParameter("commentId"));
+        Comment repComment = new Comment();
+        repComment.setReportId(reportId); // 該当レポートのidを取得
+        repComment.setEmployee((Employee) request.getSession().getAttribute("login_employee")); // セッションからログインユーザーを取得
+        repComment.setComment(request.getParameter("repComment")); // 返信コメントセット
         // コメント番号を入れたいので、現在のコメント数を出力し+1した値を格納
         long comment_count = (long) em.createNamedQuery("getMyCommentsCount", Long.class)
-                .setParameter("reportId", id)
+                .setParameter("reportId", reportId)
                 .getSingleResult();
         comment_count++;
-
-        comment.setComment_count((int) comment_count); // コメント番号
-        comment.setDelete_flag(0); // データのみDBに残しておくからFlagでセット
+        repComment.setComment_count((int) comment_count); // コメント番号
+        repComment.setDelete_flag(0); // データのみDBに残しておくからFlagでセット
+        repComment.setComment_id(repComId); // 返信するコメントのID格納
+        // コメントの入力値チェックを行う
 
         // 投稿日時を現在で取得
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        comment.setCreated_at(currentTime);
+        repComment.setCreated_at(currentTime);
         // DBに反映させる
         em.getTransaction().begin();
-        em.persist(comment);
+        em.persist(repComment);
         em.getTransaction().commit();
         em.close();
+
         // コメント投稿完了の旨を伝えるメッセージをsetAttribute
         request.getSession().setAttribute("flush", "コメントの投稿が完了しました。");
+
         // response.sendRedirectでコメントを投稿しても、show.jspのまま
-        response.sendRedirect(request.getContextPath() + "/report/show?id=" + id);
+        response.sendRedirect(request.getContextPath() + "/report/show?id=" + reportId);
     }
 }
-/**メモ
- *      *JavaScriptで入力値チェック実装
- *      // コメントの入力値チェックを行う
-        List<String> errors = ReportValidator.commetvalidate(comment); // errorsの型をList<String>に合わせ、commentの情報を渡す。
-        if(errors.size() > 0){
-            request.getSession().setAttribute("errors", errors);
-            response.sendRedirect(request.getContextPath() + "/report/show?id=" + id);
-        }
- * */

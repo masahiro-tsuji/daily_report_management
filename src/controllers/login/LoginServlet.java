@@ -69,62 +69,50 @@ public class LoginServlet extends HttpServlet {
             String code = request.getParameter("code");
             String plain_pass = request.getParameter("pass");
 
-            // 全てが未入力なら
-            if(code == null || code.equals("") || plain_pass == null || plain_pass.equals("")){
-                // トークン
-                request.getSession().setAttribute("_token", CreateToken.getCsrfToken());
-                request.setAttribute("codePassNull", true);
+            // 社員番号とパスワードが入力されているなら
+            Employee employee = null;
+            // 入力された社員番号とパスワードが入力されていたら。
+
+            // DBオープン
+            EntityManager em = DBUtil.createEntityManager();
+            // パスワードはハッシュ化されてデータベースに登録されていいるから
+            // フォームから入力されたパスワードに EncryptUtil.getPasswordEncrypt()
+            // を使ってペッパー文字列を連結した文字列をハッシュ化し、そのデータとデータベース上のデータで照合をする。
+            String password = EncryptUtil.getPasswordEncrypt(plain_pass, (String)this.getServletContext().getAttribute("pepper"));
+            // 社員番号とパスワードが合致しているか
+            try{
+                // 検索結果１件を取得、取得できなければNoResultExceptionへ
+                employee = em.createNamedQuery("checkLogin", Employee.class)
+                        .setParameter("code", code)
+                        .setParameter("pass", password)
+                        .getSingleResult();
+            }catch(NoResultException ex){}
+
+            em.close(); // DB閉じる
+
+            // 社員情報があれば,check_resultをtrueにしてログインする。
+            if(employee != null) {
+                check_result = true;
+            }
+
+            // check_resultがfalseならログイン画面に戻る
+            if(!check_result){
+                // 認証できなかったらログイン画面に戻る
+                //トークンセット
+
+                request.setAttribute("hasError", true);
+                request.setAttribute("code", code);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
                 rd.forward(request, response);
-            // 社員番号とパスワードが入力されているなら
             }else{
-
-                Employee employee = null;
-                // 入力された社員番号とパスワードが入力されていたら。
-                if(code != null && !code.equals("") && plain_pass != null && !plain_pass.equals("") ){
-                    // DBオープン
-                    EntityManager em = DBUtil.createEntityManager();
-                    // パスワードはハッシュ化されてデータベースに登録されていいるから
-                    // フォームから入力されたパスワードに EncryptUtil.getPasswordEncrypt()
-                    // を使ってペッパー文字列を連結した文字列をハッシュ化し、そのデータとデータベース上のデータで照合をする。
-                    String password = EncryptUtil.getPasswordEncrypt(plain_pass, (String)this.getServletContext().getAttribute("pepper"));
-                    // 社員番号とパスワードが合致しているか
-                    try{
-                        // 検索結果１件を取得、取得できなければNoResultExceptionへ
-                        employee = em.createNamedQuery("checkLogin", Employee.class)
-                                .setParameter("code", code)
-                                .setParameter("pass", password)
-                                .getSingleResult();
-                    }catch(NoResultException ex){}
-
-                    em.close(); // DB閉じる
-                    // 社員情報があれば,check_resultをtrueにしてログインする。
-                    if(employee != null) {
-                        check_result = true;
-                    }
-
-                    // check_resultがfalseならログイン画面に戻る
-                    if(!check_result){
-                        // 認証できなかったらログイン画面に戻る
-                        //トークンセット
-
-                        request.setAttribute("hasError", true);
-                        request.setAttribute("code", code);
-
-                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
-                        rd.forward(request, response);
-                    }else{
-                        // 認証できたらログインする(トップページのServletへ遷移)
-                        request.getSession().setAttribute("login_employee", employee); // セッションスコープ従業員情報のオブジェクトを格納
-                                                                                // *セッションスコープに login_employee という名前で従業員情報の
-                                                                                //  オブジェクトが保存されている状態をログインしている状態
-
-                        request.getSession().setAttribute("flush", "ログインしました。");
-                        // 自動でログインページにリダイレクト
-                        response.sendRedirect(request.getContextPath() + "/");
-                    }
-                }
+                // 認証できたらログインする(トップページのServletへ遷移)
+                request.getSession().setAttribute("login_employee", employee); // セッションスコープ従業員情報のオブジェクトを格納
+                                                                               // *セッションスコープに login_employee という名前で従業員情報の
+                                                                               //  オブジェクトが保存されている状態をログインしている状態
+                request.getSession().setAttribute("flush", "ログインしました。");
+                // 自動でログインページにリダイレクト
+                response.sendRedirect(request.getContextPath() + "/");
             }
         }else{
             // トークン不正内容を記載

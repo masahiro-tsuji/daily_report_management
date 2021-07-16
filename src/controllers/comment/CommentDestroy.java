@@ -33,7 +33,7 @@ public class CommentDestroy extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int commentId = Integer.parseInt(request.getParameter("cid")); // コメントのidを取得
         int id = Integer.parseInt(request.getParameter("rid"));
-
+        int page = Integer.parseInt(request.getParameter("page"));
         EntityManager em = DBUtil.createEntityManager(); // DBオープン
 
         Comment comment = em.find(Comment.class, commentId); // コメントのインスタンスオブジェクトに該当データを入れる。
@@ -44,6 +44,6 @@ public class CommentDestroy extends HttpServlet {
         em.close();
 
         request.getSession().setAttribute("flush", "削除が完了しました。");
-        response.sendRedirect(request.getContextPath() + "/report/show?id=" + id);
+        response.sendRedirect(request.getContextPath() + "/report/show?id=" + id + "&page=" + page);
     }
 }

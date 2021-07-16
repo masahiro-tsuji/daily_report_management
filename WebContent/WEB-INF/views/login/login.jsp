@@ -3,18 +3,7 @@
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
-        <c:if test="${hasError}">
-            <div id="flush_error">
-                社員番号かパスワードが間違っています。
-            </div>
-        </c:if>
-
-        <c:if test="${ codePassNull }">
-            <div id="fkush_error">
-                社員番号とパスワード、又は、片方が未入力です。
-            </div>
-        </c:if>
-
+<%-- ログアウトしたときのメッセージを伝える --%>
         <c:if test="${flush != null}">
             <div id="flush_success">
                 <c:out value="${flush}"></c:out>
@@ -22,19 +11,48 @@
         </c:if>
 
         <h2>ログイン画面</h2>
-
-        <form method="POST" action="<c:url value='/login' />">
+<%-- 入力フォーム -------------------------------------------------------%>
+        <form method="POST"  class="login_form" action="<c:url value='/login' />">
             <label for="code">社員番号</label> <br/>
-            <input type="text" name="code" value="${ code }" />
+            <input type="text" id="code"  name="code" value="${ code }" onChange="alertValue(this)" />
             <br/><br/>
-
             <label for="pass">パスワード</label> <br/>
-            <input type="password" name="pass" />
+            <input type="password" id="pass"  name="pass" onChange="alertValue(this)"  />
             <br/><br/>
-
             <input type="hidden" name="token" value="${ _token }" />
-
-            <button type="submit">ログイン</button>
+            <input type="submit"  value="ログイン"   onclick="return check()" />
         </form>
+
+<!-- JavaScript  -->
+
+<%-- 下記のscriptで社員番号に自動的にフォーカスさせる  --%>
+        <script type="text/javascript">
+            document.getElementById('code').focus();
+        </script>
+
+<%-- 入力値チェック -------------------------------------%>
+        <script type="text/javascript">
+        function check(){
+            if(!document.getElementById('code').value){
+                alert("社員番号が未入力です");
+                document.getElementById('code').style.backgroundColor = '#ff0000'; <%-- 背景色を変える --%>
+                document.getElementById('code').focus();    <%-- 未入力のcode欄にフォーカス --%>
+                return false;
+            }else if(!document.getElementById('pass').value){
+                alert("パスワードが未入力です");
+                document.getElementById('pass').style.backgroundColor = '#ff0000';
+                document.getElementById('pass').focus();
+                return false;
+            }else{
+                return true;
+            }
+        }
+        </script>
+<%-- 入力欄からfocusが外れた場合、背景色を戻す --%><%-- https://hacknote.jp/archives/6109/ --%>
+        <script>
+            function alertValue($this) {
+                $this.style.backgroundColor = ''
+            }
+        </script>
     </c:param>
 </c:import>

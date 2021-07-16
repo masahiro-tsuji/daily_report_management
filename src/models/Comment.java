@@ -53,9 +53,11 @@ public class Comment {
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
 
-    @Column(name ="comment_count", nullable = false)
+    @Column(name = "comment_count", nullable = false)
     private int comment_count;
 
+    @Column(name = "comment_id", nullable = false)
+    private int comment_id;
 
     @Column(name = "delete_flag", nullable = false)
     private Integer delete_flag;
@@ -64,7 +66,6 @@ public class Comment {
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -72,7 +73,6 @@ public class Comment {
     public Employee getEmployee() {
         return employee;
     }
-
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
@@ -80,7 +80,6 @@ public class Comment {
     public Integer getReportId() {
         return reportId;
     }
-
     public void setReportId(Integer reportId) {
         this.reportId = reportId;
     }
@@ -88,7 +87,6 @@ public class Comment {
     public String getComment() {
         return comment;
     }
-
     public void setComment(String comment) {
         this.comment = comment;
     }
@@ -96,18 +94,22 @@ public class Comment {
     public Timestamp getCreated_at() {
         return created_at;
     }
-
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
-
     }
 
     public int getComment_count() {
         return comment_count;
     }
-
     public void setComment_count(int comment_count) {
         this.comment_count = comment_count;
+    }
+
+    public int getComment_id() {
+        return comment_id;
+    }
+    public void setComment_id(int comment_id) {
+        this.comment_id = comment_id;
     }
 
     public Integer getDelete_flag() {

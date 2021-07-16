@@ -19,33 +19,26 @@
             <td><div class="comment_create_at"><fmt:formatDate value="${comment.created_at}" pattern="yyyy年MM月dd日 HH:mm:ss" /></div><%-- 投稿日時 --%>
                 <c:if test="${ comment.delete_flag != 1 }"><%-- 削除されていなければ、返信、削除機能を出す。 --%>
                     <div class="comment_option" >
-                        <%-- 返信機能の処理 --%>
-
-
-                        <%-- ここからで、返信をクリックしても対象のコメントナンバーが出てこない --%>
-                        <a href="#" onclick="replyClick();">>返信</a>&nbsp;&nbsp;&nbsp;
-                        <script>
-                            function replyClick(){
-                                document.getElementById( "comment_area" ).value = ">>" + ${comment.comment_count} ;
-                            }
-                        </script>
-                        <%--- <a href="<c:url value='/comment/reply?cid=${comment.id}&rid=${report.id }' />">>返信</a>&nbsp;&nbsp;&nbsp;  --%>
-
-
-                        <%-- 削除機能の処理 --%>
+<%-- 返信機能の処理 --%>
+                        <form name="reply_form" method="get" action="<c:url value='/reply'/>">
+                            <input type="hidden" name="cid" value="${ comment.id }"/>
+                            <input type="hidden" name="rid" value="${ report.id }"/>
+                            <input type="submit" value="返信" />
+                        </form>
+<%-- 削除機能の処理 --%>
                         <c:if test="${ comment.employee.id == sessionScope.login_employee.id }">
                                 <%-- <a href="<c:url value='/comment/destroy?cid=${comment.id}&rid=${report.id }' />" onclick="commentDestroy();" >>削除</a> --%>
-
-                                <form name="destroy_form"  action="<c:url value='/comment/destroy'/>"onclick="return commentDestroy()" >
+                                <form name="destroy_form"  action="<c:url value='/comment/destroy'/>"onclick="return commentDestroy();" >
                                     <input type="hidden" name="cid" value="${ comment.id }"/>
                                     <input type="hidden" name="rid" value="${ report.id }"/>
-                                    <input type="submit" value="削除"  /><%-- このsubmitは正常に動く  --%>
-                                    <a href="#" onclick="commentDestroy()">>削除</a>
+                                    <input type="hidden" name="page" value="${ page }"/>
+                                    <input type="submit" value="削除"  />
+                                    <%-- <a href="#" onclick="commentDestroy()">>削除</a> <c:redirect url="リダイレクトURL" ・・・・ />--%>
                                 </form>
                                 <script>
                                     function commentDestroy(){
                                         if(confirm("コメントを削除してよろしいですか？")){
-                                            document.forms[0].submit();
+                                            document.forms[delete_form].submit();
                                         }else{
                                             return false;
                                         }
@@ -56,10 +49,17 @@
                 </c:if>
             </td>
         </tr>
+<!-- コメント内容の表示  -->
         <c:choose>
                 <c:when test="${ comment.delete_flag == 0 }">
                     <%-- colspan : セルが３つあるので、colspan="3"　とする。２つの場合は２  --%>
-                    <tr><td colspan="3"><pre><c:out value="${ comment.comment }" /></pre></td></tr>
+                    <tr><td colspan="3">
+
+                         失敗(完成まで残しておく)
+                        <c:if test="${ comment.comment_id != 0}"><a href="comment/edit?cid=${ comment.comment_id }"  rel="noopener noreferrer" onclick="window.open(this.href, 'comment_edit', 'width=400, height=300, menubar=no, toolbar=no, scrollbars=yes '); return false;"><c:out value=">>${ comment.comment_id }" /></a></c:if>
+
+                        <pre><c:out value="${ comment.comment }" /></pre></td>
+                    </tr>
                 </c:when>
                 <c:otherwise><tr><td colspan="3" >（コメントは削除されました。）</td></tr></c:otherwise>
         </c:choose>

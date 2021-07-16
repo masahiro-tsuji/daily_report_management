@@ -42,21 +42,13 @@
                 <c:import url="../comments/list.jsp" />
                 <br/>
 <%-- コメント投稿フォーム --%>
-                <%-- 投稿者と管理者がコメントできるよう実装 --%>
-                <c:if test="${sessionScope.login_employee.id == report.employee.id || login_employee.admin_flag == 1 }">
-                    <form method="POST" action= "<c:url value='/comment/new' />">
-                        <label for="comment">●コメント入力フォーム</label><br/>
-                        <textarea id="comment_area" rows = "10" cols = "50" name = "comment" placeholder="ここにコメントを入力して下さい。"  >${ comment.comment }</textarea>
-                        <input type="hidden" name="report_id" value="${ report.id }" />
-                        <br/>
-                        <button type="submit">投稿</button>
-                    </form><br/>
-                </c:if>
-                <%-- 投稿者のみが日報を編集できるようにする。 --%>
+                <c:import url="../comments/comment_form.jsp"/>
+                <br/>
+<%-- 投稿者のみが日報を編集できるようにする。 --%>
                 <c:if test="${ sessionScope.login_employee.id == report.employee.id }">
                     <p><a href="<c:url value="/report/edit?id=${ report.id }" />">>日報を編集する</a></p>
                 </c:if>
-            <%-- 日報が削除されていた場合 --%>
+<%-- 日報が削除されていた場合 --%>
             </c:when>
             <c:otherwise>お探しの日報は見つかりませんでした。</c:otherwise>
         </c:choose>

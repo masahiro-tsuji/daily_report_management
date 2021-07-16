@@ -86,6 +86,12 @@ public class ReportShowServlet extends HttpServlet {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
         }
+        // 返信するコメントデータ
+        if(request.getSession().getAttribute("repComment") != null) {
+            request.setAttribute("repComment", request.getSession().getAttribute("repComment"));
+            request.getSession().removeAttribute("repComment");
+        }
+
         // show.jspへ遷移
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/show.jsp");
         rd.forward(request, response);
