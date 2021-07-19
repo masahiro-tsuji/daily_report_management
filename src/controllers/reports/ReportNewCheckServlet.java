@@ -2,7 +2,6 @@ package controllers.reports;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import listener.CreateToken;
-import model.validators.ReportValidator;
 import models.Report;
 
 /**
@@ -41,19 +39,19 @@ public class ReportNewCheckServlet extends HttpServlet {
         report.setReport_date(Date.valueOf(request.getParameter("report_date")));
         report.setTitle(request.getParameter("title"));
         report.setContent(request.getParameter("content"));
-        List<String> errors = ReportValidator.validate(report);
+
+        session.setAttribute("_token", CreateToken.getCsrfToken());
+        request.setAttribute("report", report);
+        request.setAttribute("checkmessage", "●下記の内容で投稿します。よろしいですか？"); // 確認メッセージ格納
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/newcheck.jsp");
+        rd.forward(request, response);
+    }
+}
+
+/*List<String> errors = ReportValidator.validate(report);
         if(errors.size() > 0){
             request.setAttribute("report", report);
             request.setAttribute("errors", errors);
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/new.jsp");
             rd.forward(request, response);
-        }else{
-            session.setAttribute("_token", CreateToken.getCsrfToken());
-            request.setAttribute("report", report);
-            request.setAttribute("checkmessage", "●下記の内容で投稿します。よろしいですか？"); // 確認メッセージ格納
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/newcheck.jsp");
-            rd.forward(request, response);
-        }
-    }
-
-}
+*/

@@ -33,10 +33,16 @@
 <%-- 入力値チェック -------------------------------------%>
         <script type="text/javascript">
         function check(){
-            if(!document.getElementById('code').value){
+            if( !document.getElementById('code').value && !document.getElementById('pass').value ){
+                 alert("社員番号とパスワードを入力して下さい。");
+                 document.getElementById('code').style.backgroundColor = '#ff0000'; <%-- 背景色を変える --%>
+                 document.getElementById('pass').style.backgroundColor = '#ff0000';
+                 document.getElementById('code').focus();    <%-- 未入力のcode欄にフォーカス --%>
+                 return false;
+            }else if(!document.getElementById('code').value){
                 alert("社員番号が未入力です");
-                document.getElementById('code').style.backgroundColor = '#ff0000'; <%-- 背景色を変える --%>
-                document.getElementById('code').focus();    <%-- 未入力のcode欄にフォーカス --%>
+                document.getElementById('code').style.backgroundColor = '#ff0000';
+                document.getElementById('code').focus();
                 return false;
             }else if(!document.getElementById('pass').value){
                 alert("パスワードが未入力です");
@@ -48,6 +54,7 @@
             }
         }
         </script>
+
 <%-- 入力欄からfocusが外れた場合、背景色を戻す --%><%-- https://hacknote.jp/archives/6109/ --%>
         <script>
             function alertValue($this) {

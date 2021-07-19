@@ -25,15 +25,15 @@
 
 <!-- 入力内容 -->
 <label for = "code">【社員番号】</label> <br/>
-<input id="code_text" type = "text" name ="code" value = "${ employee.code }" />
+<input id="code_text" type = "text" name ="code" value = "${ employee.code }" onChange="alertValue(this)"/>
 <br/><br/>
 
 <label for = "name">【氏名】</label> <br/>
-<input id="name_text" type = "text" name ="name" value = "${ employee.name }" />
+<input id="name_text" type = "text" name ="name" value = "${ employee.name }" onChange="alertValue(this)"/>
 <br/><br/>
 
 <label for = "pass">【パスワード】</label> <br/>
-<input id="pass_text" type = "text" name = "pass" />
+<input id="pass_text" type = "text" name = "pass" onChange="alertValue(this)"/>
 <br/><br/>
 
 <label for = "flag">【権限】</label> <br/>
@@ -45,3 +45,10 @@
 <!-- トークンを送る -->
 <input type = "hidden" name = "token" value = "${_token }"/>
 <button type = "submit">確認</button>
+
+<%-- 入力欄からfocusが外れた場合、背景色を戻す --%>
+<script>
+    function alertValue($this) {
+        $this.style.backgroundColor = ''
+    }
+</script>

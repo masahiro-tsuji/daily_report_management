@@ -10,6 +10,7 @@
         <br/>
         <input type="submit"  value="投稿"   onclick="return check()" onclick="return check();"/>
     </form>
+
 <%-- scriptでコメント入力チェック --%>
     <script>
         function check(){
@@ -28,5 +29,5 @@
 
 * value.match(/\S/g)で空白や改行のみの判定を行ってくれる.
 
-
+git push origin HEAD:main
 --%>
