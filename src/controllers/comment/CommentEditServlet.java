@@ -9,14 +9,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.stream.events.Comment;
 
+import models.Comment;
 import utils.DBUtil;
 
 /**
  * Servlet implementation class CommentEditServlet
  */
-@WebServlet("/comment/edit")
+@WebServlet("/report/commentedit")
 public class CommentEditServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -32,13 +32,20 @@ public class CommentEditServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int commentId = Integer.parseInt(request.getParameter("cid"));
-        EntityManager em = DBUtil.createEntityManager();
-        Comment comment = em.find(Comment.class, commentId);
 
+        EntityManager em = DBUtil.createEntityManager();
+        int commentId = Integer.parseInt(request.getParameter("cid"));
+        Comment comment = em.find(Comment.class, commentId);
+        em.close();
         request.setAttribute("comment", comment);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/comments/edit.jsp");
         rd.forward(request, response);
     }
 }
+
+/*
+ * import javax.xml.stream.events.Comment; ← modelsパッケージのCommentではなく、左記の物をインポートしてしまった為、
+ *                                            HTTPステータス 500 - Unable to locate persister:javax.xml.stream.events.Comment
+ *                                            のエラーが出た。
+ */

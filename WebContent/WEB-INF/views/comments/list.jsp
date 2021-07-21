@@ -20,21 +20,11 @@
                 <c:if test="${ comment.delete_flag != 1 }"><%-- 削除されていなければ、返信、削除機能を出す。 --%>
                     <div class="comment_option" >
 <%-- 返信機能の処理 --%>
-                        <form name="reply_form" method="get" action="<c:url value='/reply'/>">
-                            <input type="hidden" name="cid" value="${ comment.id }"/>
-                            <input type="hidden" name="rid" value="${ report.id }"/>
-                            <input type="submit" value="返信" />
-                        </form>
+                        <a href="<c:url value='/reply?cid=${ comment.id }&rid=${ report.id }'/>">>返信</a>&nbsp;&nbsp;&nbsp;
+
 <%-- 削除機能の処理 --%>
                         <c:if test="${ comment.employee.id == sessionScope.login_employee.id }">
-                                <%-- <a href="<c:url value='/comment/destroy?cid=${comment.id}&rid=${report.id }' />" onclick="commentDestroy();" >>削除</a> --%>
-                                <form name="destroy_form"  action="<c:url value='/comment/destroy'/>"onclick="return commentDestroy();" >
-                                    <input type="hidden" name="cid" value="${ comment.id }"/>
-                                    <input type="hidden" name="rid" value="${ report.id }"/>
-                                    <input type="hidden" name="page" value="${ page }"/>
-                                    <input type="submit" value="削除"  />
-                                    <%-- <a href="#" onclick="commentDestroy()">>削除</a> <c:redirect url="リダイレクトURL" ・・・・ />--%>
-                                </form>
+                                <a href="<c:url value='/comment/destroy?cid=${comment.id}&rid=${report.id }&page=${ page }' />" onclick="return commentDestroy();" >>削除</a>
                                 <script>
                                     function commentDestroy(){
                                         if(confirm("コメントを削除してよろしいですか？")){
@@ -54,14 +44,11 @@
                 <c:when test="${ comment.delete_flag == 0 }">
                     <%-- colspan : セルが３つあるので、colspan="3"　とする。２つの場合は２  --%>
                     <tr><td colspan="3">
-
-                         失敗(完成まで残しておく)
-                        <c:if test="${ comment.comment_id != 0}"><a href="comment/edit?cid=${ comment.comment_id }"  rel="noopener noreferrer" onclick="window.open(this.href, 'comment_edit', 'width=400, height=300, menubar=no, toolbar=no, scrollbars=yes '); return false;"><c:out value=">>${ comment.comment_id }" /></a></c:if>
-
+                        <c:if test="${ comment.comment_id != 0}"><a href="<c:url value='/report/commentedit?cid=${comment.comment_id}' />"  rel="noopener noreferrer" onclick="window.open(this.href, 'comment_edit', 'width=600, height=300, menubar=no, toolbar=no, scrollbars=yes '); return false;"><c:out value=">>${ comment.comment_id }" /></a></c:if>
                         <pre><c:out value="${ comment.comment }" /></pre></td>
                     </tr>
                 </c:when>
-                <c:otherwise><tr><td colspan="3" >（コメントは削除されました。）</td></tr></c:otherwise>
+                <c:otherwise><tr><td colspan="3" >...comment was delete...</td></tr></c:otherwise>
         </c:choose>
     </c:forEach>
 </table>
@@ -81,3 +68,19 @@
         </c:choose>
     </c:forEach>
 </div>
+
+<%--削除
+ <form name="destroy_form"  action="<c:url value='/comment/destroy?cid=${ comment.id }&rid=${ report.id }&page=${ page }'/>"onclick="return commentDestroy();" >
+                                    <input type="hidden" name="cid" value="${ comment.id }"/>
+                                    <input type="hidden" name="rid" value="${ report.id }"/>
+                                    <input type="hidden" name="page" value="${ page }"/>
+                                    <input type="submit" value="削除"  />
+                                    <%-- <a href="#" onclick="commentDestroy()">>削除</a> <c:redirect url="リダイレクトURL" ・・・・ />--%>
+<%--                                </form>
+返信
+                        <form name="reply_form" method="get" action="<c:url value='/reply'/>">
+                            <input type="hidden" name="cid" value="${ comment.id }"/>
+                            <input type="hidden" name="rid" value="${ report.id }"/>
+                            <input type="submit" value="返信" />
+                        </form>
+--%>

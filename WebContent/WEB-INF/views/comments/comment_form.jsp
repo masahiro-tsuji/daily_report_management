@@ -12,12 +12,13 @@
     </form>
 
 <%-- scriptでコメント入力チェック --%>
+<%-- 空白や改行しか入力されていない場合、それらを削除してfocusさせる。 --%>
     <script>
         function check(){
             var comment = document.getElementById('comment_area')
             if(!comment.value || !comment.value.match(/\S/g)){
                 alert("コメントが未入力です。");
-                comment.value = ''; <%-- 空白や改行しか入力されていない場合、それらを削除してfocusさせる。 --%>
+                comment.value = '';
                 document.getElementById('comment_area').focus();
                 return false;
             }
