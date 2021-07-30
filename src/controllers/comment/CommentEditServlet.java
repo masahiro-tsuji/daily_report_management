@@ -38,6 +38,8 @@ public class CommentEditServlet extends HttpServlet {
         Comment comment = em.find(Comment.class, commentId);
         em.close();
         request.setAttribute("comment", comment);
+        request.setAttribute("commentId", commentId);
+
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/comments/edit.jsp");
         rd.forward(request, response);

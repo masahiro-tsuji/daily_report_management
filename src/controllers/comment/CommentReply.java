@@ -60,6 +60,9 @@ public class CommentReply extends HttpServlet {
 
         int reportId = Integer.parseInt(request.getParameter("reportId"));
         int repComId = Integer.parseInt(request.getParameter("commentId"));
+
+        Comment subComment =  em.find(Comment.class, repComId);
+
         Comment repComment = new Comment();
         repComment.setReportId(reportId); // 該当レポートのidを取得
         repComment.setEmployee((Employee) request.getSession().getAttribute("login_employee")); // セッションからログインユーザーを取得
@@ -72,6 +75,7 @@ public class CommentReply extends HttpServlet {
         repComment.setComment_count((int) comment_count); // コメント番号
         repComment.setDelete_flag(0); // データのみDBに残しておくからFlagでセット
         repComment.setComment_id(repComId); // 返信するコメントのID格納
+        repComment.setComment_num(subComment.getComment_count());
         // コメントの入力値チェックを行う
 
         // 投稿日時を現在で取得
@@ -85,7 +89,7 @@ public class CommentReply extends HttpServlet {
 
         // コメント投稿完了の旨を伝えるメッセージをsetAttribute
         request.getSession().setAttribute("flush", "コメントの投稿が完了しました。");
-
+        //request.getSession().setAttribute("subComment", subComment);
         // response.sendRedirectでコメントを投稿しても、show.jspのまま
         response.sendRedirect(request.getContextPath() + "/report/show?id=" + reportId);
     }

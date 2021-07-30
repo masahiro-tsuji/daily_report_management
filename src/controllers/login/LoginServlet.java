@@ -99,7 +99,7 @@ public class LoginServlet extends HttpServlet {
             if(!check_result){
                 // 認証できなかったらログイン画面に戻る
                 //トークンセット
-
+                request.setAttribute("errors", "社員番号かパスワードが間違っています。");
                 request.setAttribute("hasError", true);
                 request.setAttribute("code", code);
 

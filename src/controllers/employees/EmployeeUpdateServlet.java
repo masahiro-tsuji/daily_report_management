@@ -38,6 +38,7 @@ public class EmployeeUpdateServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         String _token = (String)session.getAttribute("_token");
         String token = request.getParameter("token");
+        String subPass = (String)session.getAttribute("subPass");
         if(_token != null && _token.equals(token)){
             // データベースを開き、既存データを持ってくる
             EntityManager em = DBUtil.createEntityManager();
@@ -49,9 +50,13 @@ public class EmployeeUpdateServlet extends HttpServlet {
             }
 
             // パスワード欄に入力があったら
-            String password = request.getParameter("pass");
-            if(!(password == null || password.equals(""))) {
-                e.setPass(EncryptUtil.getPasswordEncrypt(password, (String)this.getServletContext().getAttribute("pepper")));
+            if(subPass == null){
+                String password = request.getParameter("pass");
+                if(!(password == null || password.equals(""))) {
+                    e.setPass(EncryptUtil.getPasswordEncrypt(password, (String)this.getServletContext().getAttribute("pepper")));
+                }
+            }else{
+                e.setPass(subPass);
             }
             e.setName(request.getParameter("name"));
             e.setAdmin_flag(Integer.parseInt(request.getParameter("flag")));

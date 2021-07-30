@@ -9,6 +9,12 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
+<%-- 社員番号やパスワードが一致しなかったら --%>
+        <c:if test="${errors != null}">
+            <div id="flush_error">
+                <c:out value="${errors}"></c:out>
+            </div>
+        </c:if>
 
         <h2>ログイン画面</h2>
 <%-- 入力フォーム -------------------------------------------------------%>

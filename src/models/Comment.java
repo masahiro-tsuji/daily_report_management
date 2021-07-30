@@ -62,6 +62,9 @@ public class Comment {
     @Column(name = "delete_flag", nullable = false)
     private Integer delete_flag;
 
+    @Column(name = "comment_num", nullable = false)
+    private int comment_num;
+
     // getter.setter
     public Integer getId() {
         return id;
@@ -117,5 +120,12 @@ public class Comment {
     }
     public void setDelete_flag(Integer delete_flag) {
         this.delete_flag = delete_flag;
+    }
+
+    public int getComment_num() {
+        return comment_num;
+    }
+    public void setComment_num(int comment_num) {
+        this.comment_num = comment_num;
     }
 }

@@ -8,7 +8,7 @@
         <textarea id="comment_area" rows = "10" cols = "50" name = "comment" placeholder="ここにコメントを入力して下さい。"  ></textarea>
         <input type="hidden" name="report_id" value="${ report.id }" />
         <br/>
-        <input type="submit"  value="投稿"   onclick="return check()" onclick="return check();"/>
+        <input type="submit"  value="投稿"   onclick="return check()"/>
     </form>
 
 <%-- scriptでコメント入力チェック --%>

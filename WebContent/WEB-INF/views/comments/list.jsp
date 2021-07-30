@@ -14,7 +14,12 @@
 <table border="1" id="comment_list">
     <c:forEach var="comment" items="${comments}" varStatus="status">
         <tr class="row1">
-            <td class="comment_count"><c:out value="${ comment.comment_count }" /></td><%-- コメント番号 --%>
+            <c:choose>
+                <c:when test="${ comment.delete_flag == 0 }">
+                   <td class="comment_count"><c:out value="${ comment.comment_count }" /></td><%-- コメント番号 --%>
+                </c:when>
+                <c:otherwise><td class="comment_count">削除済</td></c:otherwise>
+            </c:choose>
             <td class="comment_name"><c:out value="${ comment.employee.name }" /></td><%-- 投稿者名 --%>
             <td><div class="comment_create_at"><fmt:formatDate value="${comment.created_at}" pattern="yyyy年MM月dd日 HH:mm:ss" /></div><%-- 投稿日時 --%>
                 <c:if test="${ comment.delete_flag != 1 }"><%-- 削除されていなければ、返信、削除機能を出す。 --%>
@@ -44,7 +49,11 @@
                 <c:when test="${ comment.delete_flag == 0 }">
                     <%-- colspan : セルが３つあるので、colspan="3"　とする。２つの場合は２  --%>
                     <tr><td colspan="3">
-                        <c:if test="${ comment.comment_id != 0}"><a href="<c:url value='/report/commentedit?cid=${comment.comment_id}' />"  rel="noopener noreferrer" onclick="window.open(this.href, 'comment_edit', 'width=600, height=300, menubar=no, toolbar=no, scrollbars=yes '); return false;"><c:out value=">>${ comment.comment_id }" /></a></c:if>
+                        <c:if test="${ comment.comment_id != 0}">
+                            <a href="<c:url value='/report/commentedit?cid=${comment.comment_id}' />"  rel="noopener noreferrer"
+                            onclick="window.open(this.href, 'comment_edit', 'width=600, height=300, top=100, left=730, menubar=no, toolbar=yes, scrollbars=yes '); return false;">
+                            <c:out value=">>${ comment.comment_num } "/></a>
+                        </c:if>
                         <pre><c:out value="${ comment.comment }" /></pre></td>
                     </tr>
                 </c:when>

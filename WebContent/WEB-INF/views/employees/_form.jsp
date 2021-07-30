@@ -44,11 +44,15 @@
 <br/><br/>
 <!-- トークンを送る -->
 <input type = "hidden" name = "token" value = "${_token }"/>
-<button type = "submit">確認</button>
 
-<%-- 入力欄からfocusが外れた場合、背景色を戻す --%>
+
+
+
+<%--
+入力欄からfocusが外れた場合、背景色を戻す
 <script>
     function alertValue($this) {
         $this.style.backgroundColor = ''
     }
 </script>
+--%>

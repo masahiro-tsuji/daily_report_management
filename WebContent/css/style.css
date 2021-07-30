@@ -233,6 +233,26 @@ table#comment_list .comment_option {
     display: inline;
 }
 
+#coment_newwindow {
+    width: 94%;
+    margin-top: 15px;
+    padding-left: 3%;
+}
+
+table#comment_edit{
+    width: 100%;
+}
+
+table#comment_edit .comment_count{
+    width: 8%;
+}
+
+#coment_rep {
+    width: 94%;
+    margin-top: 15px;
+    padding-left: 3%;
+}
+
 pre{
     font-family:"Hiragino Kaku Gothic Pro", Meiryo, "MS PGothic", Helvetica, Arial,sans-serif;
 }

@@ -7,7 +7,9 @@
         <c:choose>
             <c:when test="${report.id != null}">
                 <c:if test="${flush != null }">
-                    <c:out value="${flush }"/>
+                    <div id="flush_success">
+                        <c:out value="${flush }"/>
+                    </div>
                 </c:if>
 
                 <h2>${report.title}　の詳細ページ</h2>

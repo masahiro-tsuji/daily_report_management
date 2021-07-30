@@ -17,7 +17,6 @@ import listener.CreateToken;
 import model.validators.EmployeeValidator;
 import models.Employee;
 import utils.DBUtil;
-import utils.EncryptUtil;
 
 /**
  * Servlet implementation class EmployeeUpdateCheckServlet
@@ -41,7 +40,7 @@ public class EmployeeEditCheckServlet extends HttpServlet {
         // Editのセッションを取得
         HttpSession session = request.getSession(true);
         int employeeId = (int) session.getAttribute("employeeId");
-
+        String subPass = null;
         EntityManager em = DBUtil.createEntityManager();
         Employee e = em.find(Employee.class, (Integer)(request.getSession().getAttribute("employeeId"))); // Entityの検索
         // 編集フォームからの入力内容を受け取る
@@ -59,14 +58,10 @@ public class EmployeeEditCheckServlet extends HttpServlet {
         Boolean passwordCheckFlag = true;
         String password = request.getParameter("pass");
         if(password == null || password.equals("")) {
+            subPass = e.getPass();
             passwordCheckFlag = false;
         } else {
-            e.setPass(
-                    EncryptUtil.getPasswordEncrypt(
-                            password,
-                            (String)this.getServletContext().getAttribute("pepper")
-                            )
-                    );
+            e.setPass(password);
         }
         e.setName(request.getParameter("name"));
         e.setAdmin_flag(Integer.parseInt(request.getParameter("flag")));
@@ -87,6 +82,7 @@ public class EmployeeEditCheckServlet extends HttpServlet {
         // 確認画面へ値をセット
         request.setAttribute("employee", e);
         session.setAttribute("employeeId", employeeId);
+        session.setAttribute("subPass", subPass);
         session.setAttribute("_token", CreateToken.getCsrfToken());
         request.setAttribute("checkmessage", "下記の内容で更新します。");
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/editcheck.jsp");

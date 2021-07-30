@@ -42,7 +42,7 @@ public class CommentNewServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
-        //Employee login_employee = (Employee) request.getSession().getAttribute("login_employee");
+        // Employee login_employee = (Employee) request.getSession().getAttribute("login_employee");
         // インスタンス生成とshow.jspから値取得
 
         Comment comment = new Comment();

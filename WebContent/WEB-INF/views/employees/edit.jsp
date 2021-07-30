@@ -9,6 +9,7 @@
             <c:when test="${ employee != null }">
                 <form method="POST" action ="<c:url value = '/employee/editcheck' /> ">
                     <c:import url = "_form.jsp" />
+                    <button type = "submit">確認</button>
                 </form>
                 <br/>
                 <a href="<c:url value='/employee/show?id=${ employee.id }' />">>詳細画面に戻る</a>&nbsp;&nbsp;&nbsp;&nbsp;

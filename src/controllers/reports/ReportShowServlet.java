@@ -92,6 +92,7 @@ public class ReportShowServlet extends HttpServlet {
             request.getSession().removeAttribute("repComment");
         }
 
+
         // show.jspへ遷移
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/show.jsp");
         rd.forward(request, response);

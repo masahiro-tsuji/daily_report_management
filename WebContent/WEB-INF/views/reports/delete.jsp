@@ -3,7 +3,10 @@
 <c:import url ="../layout/app.jsp">
     <c:param name="content">
         <h2>削除確認画面</h2>
-        <h3>●以下の日報を削除します。よろしいですか？</h3><br/><br/>
+        <div id="flush_error">
+        <h3>●以下の日報を削除します。よろしいですか？</h3>
+        </div>
+        <br/><br/>
         <form method="POST">
             <c:import url="_check.jsp"/>
             <button type="button" onclick="multipleaction('/daily_report_management/report/destroy')">削除する</button>
