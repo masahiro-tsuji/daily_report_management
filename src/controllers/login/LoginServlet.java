@@ -121,3 +121,6 @@ public class LoginServlet extends HttpServlet {
         }
     }
 }
+// RequestDispatcher : クライアントからリクエストを受信し、サーバー上の任意のリソース（サーブレット、HTML ファイル、JSP ファイルなど）に送信するオブジェクトを定義
+// includeメソッドとforwardメソッドの違いは転送後に、処理が転送元に戻ってくるかどうか。includeメソッドは転送先のプログラムを実行した後、処理が転送元に戻る。
+// forwardメソッドは転送先に処理が完全に移行し、処理が転送元に戻ってくることはない。
