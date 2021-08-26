@@ -33,4 +33,6 @@ public class DBUtil {
  *O/R マッピング : オブジェクト指向とリレーショナルデータベースの溝を埋めることを目的
  *EntityManagerクラスに、データベースアクセスに関する各種の機能がまとめられている。
  *それらを呼び出すことで、データベースを操作できる
+ *createEntityManagerFactory : インスタンス生成(Persistenceクラスの「createEntityManagerFactory」というメソッドを使い、引数にパーシスタンス・ユニット名を指定して呼び出し)
+ *Persistence : EntityManagerFactoryを得るために使用されるブートストラップクラス
  */
