@@ -24,3 +24,9 @@
         <p><a href="<c:url value='/report/index' />">>日報一覧に戻る</a></p>
     </c:param>
 </c:import>
+<%-- 
+*document.querySelector : 指定されたセレクターまたはセレクターのグループに一致する、文書内の最初のElementを返し、一致しなければNULLを返す。
+*Element : button,submitなど
+*セレクター : id属性やclass属性など
+*Dom : 階層構造、bodyの中に、<selection><p>***</p></selection>(DOMは,WEBページとプログラミング言語を繋ぐ役割を持つ)
+--%>
