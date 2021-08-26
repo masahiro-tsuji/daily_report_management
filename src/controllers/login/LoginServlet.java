@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
             // パスワードはハッシュ化されてデータベースに登録されていいるから
             // フォームから入力されたパスワードに EncryptUtil.getPasswordEncrypt()
             // を使ってペッパー文字列を連結した文字列をハッシュ化し、そのデータとデータベース上のデータで照合をする。
-            String password = EncryptUtil.getPasswordEncrypt(plain_pass, (String)this.getServletContext().getAttribute("pepper"));
+            String password = EncryptUtil.getPasswordEncrypt(plain_pass, (String)this.getServletContext().getAttribute("pepper")); // サーブレットがサーブレットコンテナーと通信するために使用する一連のメソッドを定義
             // 社員番号とパスワードが合致しているか
             try{
                 // 検索結果１件を取得、取得できなければNoResultExceptionへ
