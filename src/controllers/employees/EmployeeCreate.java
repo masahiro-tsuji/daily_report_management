@@ -61,7 +61,7 @@ public class EmployeeCreate extends HttpServlet {
             em.getTransaction().begin(); // トランザクションの開始
             em.persist(e); // 永続化の実行(Entityオブジェクトが変わる) *引数にクラスのインスタンスかEntity
             em.getTransaction().commit(); // コミット、更新SQL発行(処理を実行)
-            request.getSession().setAttribute("flush", "登録が完了しました。");
+            request.getSession().setAttribute("flush", "登録が完了致しました。");
             em.close();
             // 作業が終わったら、index.jspへ遷移させたいので、まずはindexのサーブレットへ行く。
             response.sendRedirect(request.getContextPath() + "/employee/index");
